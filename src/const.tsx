@@ -1,0 +1,3 @@
+export const ICON_NAME = {
+  PLUS_IN_CIRCLE: "ICON_NAME__PLUS_IN_CIRCLE",
+};
