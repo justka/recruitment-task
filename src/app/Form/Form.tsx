@@ -1,7 +1,7 @@
+import { ICON_NAME } from "const";
 import { Field, Form as ReactFinalForm } from "react-final-form";
-import { ICON_NAME } from "@/const";
-import { Button } from "@/ui/Button/Button";
-import { Input } from "@/ui/Input/Input";
+import { Button } from "ui/Button/Button";
+import { Input } from "ui/Input/Input";
 
 export const Form = () => (
   <ReactFinalForm

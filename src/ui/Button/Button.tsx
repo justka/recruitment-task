@@ -1,4 +1,4 @@
-import { Icon } from "@/ui/Icon/Icon";
+import { Icon } from "ui/Icon/Icon";
 
 interface ButtonInterface {
   className: string;

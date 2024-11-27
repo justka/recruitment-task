@@ -13,3 +13,11 @@ body {
 .input__iconContainer {
   top: calc(50% - 10px);
 }
+
+.noItemsOnList__button {
+  svg {
+    path {
+      fill: transparent;
+    }
+  }
+}
