@@ -1,6 +1,6 @@
-import { Icon } from "../Icon/Icon";
 import "../../app/globals.css";
 import classNames from "classnames";
+import { Icon } from "../Icon/Icon";
 
 interface InputInterface {
   iconName?: string;

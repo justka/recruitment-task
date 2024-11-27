@@ -14,7 +14,10 @@ export function Button({
   type = "button",
 }: ButtonInterface) {
   return (
-    <button className={className} type={type}>
+    <button
+      className={className}
+      type={type}
+    >
       {iconName ? <Icon name={iconName} /> : null}
       <span>{text}</span>
     </button>

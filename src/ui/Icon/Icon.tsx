@@ -1,6 +1,6 @@
-import { ICON_NAME } from "@/const";
-import PlusInCircleIcon from "@/assets/icons/plusInCircle.svg";
 import MagnifierIcon from "@/assets/icons/magnifier.svg";
+import PlusInCircleIcon from "@/assets/icons/plusInCircle.svg";
+import { ICON_NAME } from "@/const";
 
 interface IconInterface {
   name: string;

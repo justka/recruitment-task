@@ -1,0 +1,21 @@
+{
+  "cssDeclarationSorterOrder": "alphabetical",
+  "importOrder": [
+    "styles/reset.css",
+    "styles/styles.scss",
+    "(.*).css$",
+    "(.*).scss$",
+    "^[a-z](.*)",
+    "^@(.*)",
+    "./(.*)"
+  ],
+  "importOrderGroupNamespaceSpecifiers": true,
+  "importOrderSortSpecifiers": true,
+  "plugins": [
+    "prettier-plugin-css-order",
+    "@trivago/prettier-plugin-sort-imports"
+  ],
+  "quoteProps": "consistent",
+  "singleAttributePerLine": true,
+  "trailingComma": "es5"
+}
