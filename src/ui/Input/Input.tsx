@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { Icon } from "../Icon/Icon";
 
 interface InputInterface {
+  withError?: boolean;
   iconName?: string;
   labelText: string;
   placeholder: string;
@@ -10,6 +11,7 @@ interface InputInterface {
 }
 
 export function Input({
+  withError = false,
   iconName,
   labelText,
   placeholder,
@@ -18,7 +20,9 @@ export function Input({
 }: InputInterface) {
   return (
     <div className="flex flex-col gap-2">
-      <label className="block text-sm">{labelText}</label>
+      <label className={`block text-sm ${withError ? "text-red-600" : ""}`}>
+        {labelText}
+      </label>
       <div className="relative">
         <div className="absolute left-1.5 input__iconContainer">
           {iconName ? <Icon name={iconName} /> : null}
@@ -27,7 +31,7 @@ export function Input({
           {...rest}
           className={classNames(
             "h-full p-3 border border-solid border-[#d0d5dd] rounded-lg w-full placeholder:text-[#667085)]",
-            { "pl-8": !!iconName }
+            { "pl-8": !!iconName, "text-red-600 border-red-600": withError }
           )}
           placeholder={placeholder}
           type={type}

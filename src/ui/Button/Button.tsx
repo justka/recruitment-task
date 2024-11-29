@@ -5,6 +5,7 @@ interface ButtonInterface {
   iconName?: string;
   text: string;
   type?: "submit" | "button";
+  onClick?: () => void;
 }
 
 export function Button({
@@ -12,11 +13,13 @@ export function Button({
   iconName,
   text,
   type = "button",
+  onClick,
 }: ButtonInterface) {
   return (
     <button
       className={className}
       type={type}
+      onClick={onClick}
     >
       {iconName ? <Icon name={iconName} /> : null}
       <span>{text}</span>

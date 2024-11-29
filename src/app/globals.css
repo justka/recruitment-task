@@ -7,11 +7,20 @@
 * {
   font-family: "Inter", sans-serif;
 }
+
 body {
   background-color: whitesmoke;
 }
+
 .input__iconContainer {
   top: calc(50% - 10px);
+}
+
+.listItem__container {
+  border-bottom-width: 1px;
+  &:first-child {
+    border-radius: 6px 6px 0 0;
+  }
 }
 
 .noItemsOnList__button {
