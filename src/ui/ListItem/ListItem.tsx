@@ -35,6 +35,13 @@ export function ListItem({
     parentId: number;
   }) => void;
 }) {
+  function removeItem(id: number) {
+    setListItems((oldItems: any) =>
+      oldItems.filter((oldItem: any) => {
+        return oldItem.id !== id && oldItem.parentId !== id;
+      })
+    );
+  }
   return (
     <>
       <div
@@ -48,6 +55,7 @@ export function ListItem({
             <Icon name={ICON_NAME.TWO_CROSSED_DOUBLE_ARROWS} />
           </div>
           <div className="flex flex-col gap-1">
+            <p className="text-sm text-[#000]">{item.name}</p>
             <p className="text-sm text-[#475467]">{item.link}</p>
           </div>
         </div>
@@ -55,6 +63,7 @@ export function ListItem({
           <Button
             className="text-[#000] rounded-l-lg text-sm outline-indigo-600 border py-2.5 px-3.5 border-r-0"
             text="Usuń"
+            onClick={() => removeItem(item.id)}
           />
           <Button
             className="text-[#000] text-sm outline-indigo-600 border py-2.5 px-3.5"

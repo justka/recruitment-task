@@ -69,7 +69,7 @@ export function List({
       <div className="p-5">
         <Button
           className="text-[#000] shadow-sm shadow-[#1018280D] bg-[#fff] rounded-r-lg text-sm outline-indigo-600 border py-2.5 px-3.5 border-l-0"
-          text="Dodaj pozycję menu"
+          text="Dodaj pozycję menu 1"
           onClick={() =>
             setVisibleFormDetails({ location: "menu", level: 0, parentId: 0 })
           }
