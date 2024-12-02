@@ -8,26 +8,17 @@
 
 ## General info
 
-Application to create menu with submenus.
+Application to create menu with submenus. It includes form created using React Final Form library. User can add/edit/delete elements. Form has fields validation.
 
 ## Technologies
 
-Project is created using:
+Project was created by using:
 
 - React,
-- Next.js
+- Next.js,
 - TypeScript.
 
-## What's done
+## How it could be optimized
 
-- Form to adding menu items including submenu,
-- Editing existing items,
-- Deleting item from menu,
-- Form validation,
-
-## Future plans
-
-- Display books list,
-- Form to edit/delete book,
-- External API integration,
+- Use global state management e.g. Context,
 - Write tests.

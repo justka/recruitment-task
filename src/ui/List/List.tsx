@@ -1,8 +1,5 @@
 import { CreateUpdateMenuItemForm } from "app/CreateUpdateMenuItemForm/CreateUpdateMenuItemForm";
-import {
-  ListItemsInterface,
-  VisibleFormDetailsInterface,
-} from "commonInterfaces";
+import { VisibleFormDetailsInterface } from "commonInterfaces";
 import { SetListItemsType, SetVisibleFormDetailsType } from "commonTypes";
 import { Button } from "ui/Button/Button";
 import { ListItem } from "ui/ListItem/ListItem";
