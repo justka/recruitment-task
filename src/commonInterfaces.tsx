@@ -15,6 +15,8 @@ export interface ListItemsInterface {
   id: number;
   level: number;
   parentId: number;
+  name?: string;
+  link?: string;
 }
 [];
 

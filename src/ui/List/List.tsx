@@ -6,6 +6,7 @@ import {
 import { SetListItemsType, SetVisibleFormDetailsType } from "commonTypes";
 import { Button } from "ui/Button/Button";
 import { ListItem } from "ui/ListItem/ListItem";
+import { useDraggable, useDroppable } from "@dnd-kit/core";
 
 export interface ItemInterface {
   id: number;
@@ -46,6 +47,7 @@ export function List({
   visibleFormDetails: VisibleFormDetailsInterface;
 }) {
   const sortedItems = sortMenuItemsOnList(listItems);
+
   return (
     <div className="rounded-md border-[#d0d5dd] border border-solid">
       {sortedItems.map((item) => {
@@ -56,6 +58,7 @@ export function List({
             item={item}
             setVisibleFormDetails={setVisibleFormDetails}
             key={item.id}
+            id={item.id}
             visibleFormDetails={visibleFormDetails}
           />
         );

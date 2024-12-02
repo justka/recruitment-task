@@ -1,9 +1,6 @@
 import { CreateUpdateMenuItemForm } from "app/CreateUpdateMenuItemForm/CreateUpdateMenuItemForm";
 import classNames from "classnames";
-import {
-  ListItemsInterface,
-  VisibleFormDetailsInterface,
-} from "commonInterfaces";
+import { VisibleFormDetailsInterface } from "commonInterfaces";
 import {
   SetListItemsType,
   SetVisibleFormDetailsType,
@@ -12,6 +9,7 @@ import {
 import { ICON_NAME } from "const";
 import { Button } from "ui/Button/Button";
 import { Icon } from "ui/Icon/Icon";
+import { useDraggable, useDroppable } from "@dnd-kit/core";
 
 interface ItemInterface {
   id: number;
@@ -27,8 +25,10 @@ export function ListItem({
   visibleFormDetails,
   setListItems,
   listItems,
+  id,
 }: {
   item: ItemInterface;
+  id: number;
   listItems?: {
     id: number;
     level: number;
@@ -46,16 +46,30 @@ export function ListItem({
         })
     );
   }
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id,
+  });
+
+  const { setNodeRef: setDropRef } = useDroppable({
+    id,
+  });
   return (
     <>
       <div
         className={classNames(
-          "flex bg-[#fff] border-0 border-solid border-[#d0d5dd] px-6 py-4 justify-between listItem__container"
+          "flex bg-[#ffffff] border-0 border-solid border-[#d0d5dd] px-6 py-4 justify-between listItem__container"
         )}
         style={{ marginLeft: `${+item.level * 24}px` }}
       >
         <div className="flex items-center gap-6">
-          <div>
+          <div
+            ref={(node) => {
+              setNodeRef(node);
+              setDropRef(node);
+            }}
+            {...attributes}
+            {...listeners}
+          >
             <Icon name={ICON_NAME.TWO_CROSSED_DOUBLE_ARROWS} />
           </div>
           <div className="flex flex-col gap-1">
