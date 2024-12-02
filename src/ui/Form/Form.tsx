@@ -1,4 +1,6 @@
 import { FormField } from "app/FormField/FormField";
+import { InitialValuesInterface } from "commonInterfaces";
+import { SetVisibleFormDetailsType } from "commonTypes";
 import { ICON_NAME } from "const";
 import { Form as ReactFinalForm } from "react-final-form";
 import { Button } from "ui/Button/Button";
@@ -16,21 +18,13 @@ export const Form = ({
   onSubmit,
   setVisibleFormDetails,
   onCancel,
+  initialValues = {},
 }: {
+  initialValues?: InitialValuesInterface;
   fields: FieldInterface[];
   onSubmit: (values: object) => void;
   onCancel: () => void;
-  setVisibleFormDetails: ({
-    location,
-    id,
-    level,
-    parentId,
-  }: {
-    location: string;
-    level: number;
-    id: number;
-    parentId: number;
-  }) => void;
+  setVisibleFormDetails: SetVisibleFormDetailsType;
 }) => {
   return (
     <ReactFinalForm
@@ -53,6 +47,8 @@ export const Form = ({
                     level: 0,
                     parentId: 0,
                     id: 0,
+                    mode: "add",
+                    isFormVisible: false,
                   });
                 }}
               />
@@ -64,6 +60,7 @@ export const Form = ({
                     name={field.name}
                     label={field.label}
                     placeholder={field.placeholder}
+                    initialValue={initialValues[field.name]}
                   />
                 );
               })}

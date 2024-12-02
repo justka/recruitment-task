@@ -7,16 +7,19 @@ interface FormFieldInterface {
   name: string;
   label: string;
   placeholder: string;
+  initialValue?: string;
 }
 
 export function FormField({
   iconName,
   name,
+  initialValue = "",
   label,
   placeholder,
 }: FormFieldInterface) {
   return (
     <Field
+      initialValue={initialValue}
       validate={(value) =>
         validateField({
           name,

@@ -1,14 +1,24 @@
 import { CreateUpdateMenuItemForm } from "app/CreateUpdateMenuItemForm/CreateUpdateMenuItemForm";
 import classNames from "classnames";
+import {
+  ListItemsInterface,
+  VisibleFormDetailsInterface,
+} from "commonInterfaces";
+import {
+  SetListItemsType,
+  SetVisibleFormDetailsType,
+  SetVisibleFormDetailsValueType,
+} from "commonTypes";
 import { ICON_NAME } from "const";
 import { Button } from "ui/Button/Button";
 import { Icon } from "ui/Icon/Icon";
 
 interface ItemInterface {
-  name: string;
-  level: number;
   id: number;
-  link: string;
+  parentId: number;
+  level: number;
+  name?: string;
+  link?: string;
 }
 
 export function ListItem({
@@ -16,30 +26,24 @@ export function ListItem({
   setVisibleFormDetails,
   visibleFormDetails,
   setListItems,
+  listItems,
 }: {
   item: ItemInterface;
-  setListItems: any;
-  visibleFormDetails: {
-    location: string;
-    level: number;
+  listItems?: {
     id: number;
-    parentId: number;
-  };
-  setVisibleFormDetails: ({
-    location,
-    level,
-    parentId,
-  }: {
-    location: string;
     level: number;
     parentId: number;
-  }) => void;
+  }[];
+  setListItems: SetListItemsType;
+  visibleFormDetails: VisibleFormDetailsInterface;
+  setVisibleFormDetails: SetVisibleFormDetailsType;
 }) {
   function removeItem(id: number) {
-    setListItems((oldItems: any) =>
-      oldItems.filter((oldItem: any) => {
-        return oldItem.id !== id && oldItem.parentId !== id;
-      })
+    setListItems(
+      (currentListItems: { id: number; parentId: number; level: number }[]) =>
+        currentListItems.filter((currentListItem) => {
+          return currentListItem.id !== id && currentListItem.parentId !== id;
+        })
     );
   }
   return (
@@ -68,16 +72,43 @@ export function ListItem({
           <Button
             className="text-[#000] text-sm outline-indigo-600 border py-2.5 px-3.5"
             text="Edytuj"
+            onClick={() => {
+              setVisibleFormDetails(
+                (
+                  setVisibleFormDetailsValue: SetVisibleFormDetailsValueType
+                ) => {
+                  return {
+                    ...setVisibleFormDetailsValue,
+                    location: "menu",
+                    level: item.level,
+                    initialValues: item,
+                    mode: "edit",
+                    id: item.id,
+                    isFormVisible: true,
+                    parentId: 0,
+                  };
+                }
+              );
+            }}
           />
           <Button
             className="text-[#000] rounded-r-lg text-sm outline-indigo-600 border py-2.5 px-3.5 border-l-0"
             text="Dodaj pozycję menu"
             onClick={() =>
-              setVisibleFormDetails({
-                location: "submenu",
-                level: +item.level + 1,
-                parentId: item.id,
-              })
+              setVisibleFormDetails(
+                (
+                  setVisibleFormDetailsValue: SetVisibleFormDetailsValueType
+                ) => ({
+                  ...setVisibleFormDetailsValue,
+                  initialValues: {},
+                  location: "submenu",
+                  level: +item.level + 1,
+                  parentId: item.id,
+                  mode: "add",
+                  id: 0,
+                  isFormVisible: true,
+                })
+              )
             }
           />
         </div>
@@ -85,10 +116,27 @@ export function ListItem({
       {visibleFormDetails.location === "submenu" &&
       visibleFormDetails.parentId === item.id ? (
         <CreateUpdateMenuItemForm
+          listItems={listItems}
           level={visibleFormDetails.level}
           setListItems={setListItems}
           setVisibleFormDetails={setVisibleFormDetails}
           parentId={item.id}
+          initialValues={visibleFormDetails.initialValues}
+          mode={visibleFormDetails.mode}
+          visibleFormDetails={visibleFormDetails}
+        />
+      ) : null}
+      {visibleFormDetails.location === "menu" &&
+      visibleFormDetails.mode === "edit" &&
+      visibleFormDetails.id === item.id ? (
+        <CreateUpdateMenuItemForm
+          listItems={listItems}
+          level={visibleFormDetails.level}
+          setListItems={setListItems}
+          setVisibleFormDetails={setVisibleFormDetails}
+          visibleFormDetails={visibleFormDetails}
+          mode={visibleFormDetails.mode}
+          initialValues={visibleFormDetails.initialValues}
         />
       ) : null}
     </>

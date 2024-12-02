@@ -1,14 +1,16 @@
 import { CreateUpdateMenuItemForm } from "app/CreateUpdateMenuItemForm/CreateUpdateMenuItemForm";
-import { Dispatch, SetStateAction } from "react";
+import {
+  ListItemsInterface,
+  VisibleFormDetailsInterface,
+} from "commonInterfaces";
+import { SetListItemsType, SetVisibleFormDetailsType } from "commonTypes";
 import { Button } from "ui/Button/Button";
 import { ListItem } from "ui/ListItem/ListItem";
 
 export interface ItemInterface {
-  name: string;
-  link: string;
   id: number;
-  level: number;
   parentId: number;
+  level: number;
 }
 
 function sortMenuItemsOnList(items: ItemInterface[]) {
@@ -34,23 +36,22 @@ export function List({
   setListItems,
   visibleFormDetails,
 }: {
-  listItems: ItemInterface[];
-  setVisibleFormDetails: any;
-  setListItems: any;
-  visibleFormDetails: {
-    location: string;
+  listItems: {
+    id: number;
     level: number;
     parentId: number;
-    id: number;
-  };
+  }[];
+  setVisibleFormDetails: SetVisibleFormDetailsType;
+  setListItems: SetListItemsType;
+  visibleFormDetails: VisibleFormDetailsInterface;
 }) {
   const sortedItems = sortMenuItemsOnList(listItems);
-
   return (
     <div className="rounded-md border-[#d0d5dd] border border-solid">
       {sortedItems.map((item) => {
         return (
           <ListItem
+            listItems={listItems}
             setListItems={setListItems}
             item={item}
             setVisibleFormDetails={setVisibleFormDetails}
@@ -59,19 +60,31 @@ export function List({
           />
         );
       })}
-      {visibleFormDetails.location === "menu" ? (
+      {visibleFormDetails.location === "menu" &&
+      visibleFormDetails.mode === "add" ? (
         <CreateUpdateMenuItemForm
+          listItems={listItems}
           level={visibleFormDetails.level}
           setListItems={setListItems}
+          visibleFormDetails={visibleFormDetails}
           setVisibleFormDetails={setVisibleFormDetails}
+          mode={visibleFormDetails.mode}
+          initialValues={visibleFormDetails.initialValues}
         />
       ) : null}
       <div className="p-5">
         <Button
           className="text-[#000] shadow-sm shadow-[#1018280D] bg-[#fff] rounded-r-lg text-sm outline-indigo-600 border py-2.5 px-3.5 border-l-0"
-          text="Dodaj pozycję menu 1"
+          text="Dodaj pozycję menu"
           onClick={() =>
-            setVisibleFormDetails({ location: "menu", level: 0, parentId: 0 })
+            setVisibleFormDetails({
+              location: "menu",
+              level: 0,
+              parentId: 0,
+              isFormVisible: true,
+              id: 0,
+              mode: "add",
+            })
           }
         />
       </div>
